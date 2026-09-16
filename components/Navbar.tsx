@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,10 +17,16 @@ export default function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-8">
         
         {/* Logo Section */}
-        <div className="flex items-center gap-2 relative z-50">
-          <div className="h-8 w-8 rounded bg-blue-900 flex-shrink-0" />
-          <Link href="/" onClick={handleLinkClick} className="text-xl font-bold tracking-tight text-slate-900">
-            connoisseur24
+        <div className="flex items-center relative z-50">
+          <Link href="/" onClick={handleLinkClick} className="flex items-center">
+            <Image 
+              src="/branding/logo-light.png" 
+              alt="Connoisseur24 Logo" 
+              width={400} 
+              height={80} 
+              className="h-8 md:h-10 w-auto object-contain" 
+              priority
+            />
           </Link>
         </div>
         
@@ -32,7 +39,7 @@ export default function Navbar() {
 
         {/* Desktop CTA & Mobile Toggle */}
         <div className="flex items-center gap-4 relative z-50">
-          <button className="hidden md:block px-4 py-2 text-sm font-medium text-white bg-blue-900 rounded-md hover:bg-blue-800 transition-colors">
+          <button className="hidden md:block px-4 py-2 text-sm font-medium text-white bg-brand-blue rounded-md hover:bg-brand-navy transition-colors">
             Get Protected
           </button>
           
@@ -78,7 +85,7 @@ export default function Navbar() {
               >
                 Threat Simulator
               </Link>
-              <button className="w-full mt-4 px-4 py-3 text-base font-medium text-white bg-blue-900 rounded-md hover:bg-blue-800 transition-colors">
+              <button className="w-full mt-4 px-4 py-3 text-base font-medium text-white bg-brand-blue rounded-md hover:bg-brand-navy transition-colors">
                 Get Protected
               </button>
             </nav>
