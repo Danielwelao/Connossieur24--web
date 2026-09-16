@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ShieldAlert, ShieldCheck, Loader2 } from "lucide-react";
@@ -114,11 +115,23 @@ export default function Home() {
               <button 
                 type="submit" 
                 disabled={isScanning || !email}
-                className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full py-3 bg-brand-blue hover:bg-brand-navy text-white font-medium rounded-lg transition-colors flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isScanning ? (
                   <>
-                    <Loader2 className="animate-spin mr-2" size={18} />
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+                      className="mr-2 flex items-center justify-center"
+                    >
+                      <Image 
+                        src="/icon-dark.png" 
+                        alt="Scanning..." 
+                        width={18} 
+                        height={18} 
+                        className="h-[18px] w-[18px] object-contain"
+                      />
+                    </motion.div>
                     Scanning dark web records...
                   </>
                 ) : (
