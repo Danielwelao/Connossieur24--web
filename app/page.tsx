@@ -50,7 +50,7 @@ export default function Home() {
       <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[600px] h-[600px] bg-slate-200 rounded-full blur-3xl opacity-50 pointer-events-none" />
 
       {/* --- HERO SECTION --- */}
-      <div className="container mx-auto px-4 md:px-8 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         
         {/* Left Column: Copywriting */}
         <div className="flex flex-col space-y-6">
@@ -189,7 +189,7 @@ export default function Home() {
 
       {/* --- STATISTICS SECTION --- */}
       <section className="bg-white py-10 md:py-16 relative z-10 border-y border-slate-200">
-        <div className="container mx-auto px-4 md:px-8">
+        <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
           
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">The Threat Landscape</h2>
@@ -248,7 +248,7 @@ export default function Home() {
 
       {/* --- 31 DAYS OF CYBER SECTION --- */}
       <section className="bg-slate-50 py-10 md:py-16 relative z-10 border-b border-slate-200">
-        <div className="container mx-auto px-4 md:px-8">
+        <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             {/* Left Column: Story */}
@@ -340,7 +340,7 @@ export default function Home() {
         {/* Subtle glowing background aura */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-cyan/5 rounded-full blur-[120px] pointer-events-none" />
         
-        <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto w-full px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             {/* Left Column: Terminal Mockup */}
@@ -426,7 +426,7 @@ export default function Home() {
         {/* Subtle background glow effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full bg-white/10 blur-3xl rounded-full pointer-events-none"></div>
         
-        <div className="container mx-auto px-4 md:px-8 relative z-10 text-center flex flex-col items-center">
+        <div className="max-w-7xl mx-auto w-full px-4 md:px-8 relative z-10 text-center flex flex-col items-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
             Don't wait until you're compromised.
           </h2>
