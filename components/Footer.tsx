@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function Footer() {
   return (
     <footer className="bg-brand-dark text-slate-300 py-12 md:py-16">
-      <div className="container mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
         
         {/* Column 1: Brand */}
         <div className="md:col-span-1">
@@ -69,7 +69,7 @@ export default function Footer() {
       </div>
       
       {/* Bottom Copyright */}
-      <div className="container mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
         <p>© {new Date().getFullYear()} Connoisseur24. All rights reserved.</p>
         <p className="mt-2 md:mt-0">Nigeria • Global</p>
       </div>
