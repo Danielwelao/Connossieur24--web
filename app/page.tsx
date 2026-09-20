@@ -1,9 +1,9 @@
 "use client";
 
 import Image from 'next/image';
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, ShieldAlert, ShieldCheck, Loader2 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { Search, ShieldAlert, ShieldCheck, Loader2, TrendingUp, Users, Calendar, BookOpen, Lock, BellRing, ArrowRight, Terminal, Activity, Crosshair } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -13,44 +13,44 @@ export default function Home() {
 
   // Simulated API Call
   const handleScan = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!email) return;
+    e.preventDefault();
+    if (!email) return;
 
-  setIsScanning(true);
-  setScanResult('idle');
+    setIsScanning(true);
+    setScanResult('idle');
 
-  try {
-    const res = await fetch('/api/scan', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      const res = await fetch('/api/scan', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
 
-    if (!res.ok) {
-      throw new Error('API Error');
+      if (!res.ok) {
+        throw new Error('API Error');
+      }
+
+      const data = await res.json();
+      setScanResult(data.status); // Expecting 'exposed' or 'safe'
+
+    } catch (error) {
+      console.error('Failed to scan:', error);
+    } finally {
+      setIsScanning(false);
     }
-
-    const data = await res.json();
-    setScanResult(data.status); // Expecting 'exposed' or 'safe'
-
-  } catch (error) {
-    console.error('Failed to scan:', error);
-    // You could add a toast notification here in the future
-  } finally {
-    setIsScanning(false);
-  }
-};
+  };
 
   return (
     <main className="flex-grow flex flex-col bg-slate-50 relative overflow-hidden">
       
-      {/* Background Graphic (Placeholder for Haikei SVG later) */}
+      {/* Background Graphic */}
       <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[600px] h-[600px] bg-blue-100 rounded-full blur-3xl opacity-50 pointer-events-none" />
       <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[600px] h-[600px] bg-slate-200 rounded-full blur-3xl opacity-50 pointer-events-none" />
 
-      <div className="container mx-auto px-4 md:px-8 py-16 md:py-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10 flex-grow">
+      {/* --- HERO SECTION --- */}
+      <div className="container mx-auto px-4 md:px-8 py-10 md:py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         
         {/* Left Column: Copywriting */}
         <div className="flex flex-col space-y-6">
@@ -88,7 +88,6 @@ export default function Home() {
 
         {/* Right Column: The Scanner */}
         <div className="relative">
-          {/* Subtle decorative glow behind the card */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur-xl opacity-20" />
           
           <div className="bg-white border border-slate-200 rounded-2xl shadow-xl p-6 md:p-8 relative z-10">
@@ -140,7 +139,6 @@ export default function Home() {
               </button>
             </form>
 
-            {/* Results Display */}
             <div className="mt-6 h-[100px]"> 
               <AnimatePresence mode="wait">
                 {scanResult === 'exposed' && (
@@ -188,6 +186,291 @@ export default function Home() {
         </div>
 
       </div>
+
+      {/* --- STATISTICS SECTION --- */}
+      <section className="bg-white py-10 md:py-16 relative z-10 border-y border-slate-200">
+        <div className="container mx-auto px-4 md:px-8">
+          
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">The Threat Landscape</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Cyber attacks are scaling rapidly. Understanding the scope of the problem is the first step toward effective defense.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+            
+            {/* Stat 1 */}
+            <div className="flex flex-col items-center text-center py-6 md:py-0 md:px-8">
+              <div className="h-14 w-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 shadow-sm border border-blue-100">
+                <ShieldAlert className="text-brand-blue h-6 w-6" />
+              </div>
+              <h3 className="text-5xl font-extrabold text-slate-900 mb-3">
+                <AnimatedNumber value={34} suffix="B+" />
+              </h3>
+              <p className="text-slate-800 font-semibold text-lg">Data Records Breached</p>
+              <p className="text-sm text-slate-500 mt-2 max-w-[250px]">
+                Exposed in public breaches globally over the last 12 months.
+              </p>
+            </div>
+
+            {/* Stat 2 */}
+            <div className="flex flex-col items-center text-center py-6 md:py-0 md:px-8">
+              <div className="h-14 w-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 shadow-sm border border-blue-100">
+                <TrendingUp className="text-brand-blue h-6 w-6" />
+              </div>
+              <h3 className="text-5xl font-extrabold text-slate-900 mb-3">
+                <AnimatedNumber prefix="$" value={4} suffix="M+" />
+              </h3>
+              <p className="text-slate-800 font-semibold text-lg">Average Breach Cost</p>
+              <p className="text-sm text-slate-500 mt-2 max-w-[250px]">
+                The financial toll of a data breach on a standard organization.
+              </p>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="flex flex-col items-center text-center py-6 md:py-0 md:px-8">
+              <div className="h-14 w-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 shadow-sm border border-blue-100">
+                <Users className="text-brand-blue h-6 w-6" />
+              </div>
+              <h3 className="text-5xl font-extrabold text-slate-900 mb-3">
+                <AnimatedNumber value={85} suffix="%" />
+              </h3>
+              <p className="text-slate-800 font-semibold text-lg">Human Element</p>
+              <p className="text-sm text-slate-500 mt-2 max-w-[250px]">
+                Percentage of security breaches caused by human error or social engineering.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* --- 31 DAYS OF CYBER SECTION --- */}
+      <section className="bg-slate-50 py-10 md:py-16 relative z-10 border-b border-slate-200">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Left Column: Story */}
+            <div className="flex flex-col space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cyan/10 text-brand-blue text-sm font-semibold w-max border border-brand-cyan/20">
+                <Calendar size={16} />
+                October Awareness Month
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+                Transform your security habits in <span className="text-brand-blue">31 days.</span>
+              </h2>
+              
+              <p className="text-lg text-slate-600">
+                Cybersecurity isn't about complex code; it's about daily habits. Our flagship October campaign breaks down enterprise-grade security protocols into bite-sized, actionable daily missions for everyone.
+              </p>
+              
+              <ul className="space-y-4 pt-4">
+                {[
+                  "Daily 5-minute security briefings",
+                  "Actionable device hardening checklists",
+                  "Zero-jargon explanations of complex threats",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <div className="mt-1 bg-blue-100 rounded-full p-1">
+                      <ShieldCheck className="w-4 h-4 text-brand-blue" />
+                    </div>
+                    <span className="text-slate-700 font-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="pt-6">
+                <Link 
+                  href="/october" 
+                  className="inline-flex items-center gap-2 font-semibold text-brand-blue hover:text-brand-navy transition-colors group"
+                >
+                  Explore the curriculum 
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column: Feature Grid (Bento Box Style) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                <div className="h-10 w-10 bg-indigo-50 rounded-lg flex items-center justify-center mb-4 text-indigo-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Bite-Sized Modules</h3>
+                <p className="text-sm text-slate-500">Learn one critical concept per day without feeling overwhelmed by technical jargon.</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow sm:translate-y-8">
+                <div className="h-10 w-10 bg-emerald-50 rounded-lg flex items-center justify-center mb-4 text-emerald-600">
+                  <Lock size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Practical Hardening</h3>
+                <p className="text-sm text-slate-500">Immediate, actionable steps to lock down your accounts, networks, and physical devices.</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                <div className="h-10 w-10 bg-rose-50 rounded-lg flex items-center justify-center mb-4 text-rose-600">
+                  <ShieldAlert size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Threat Recognition</h3>
+                <p className="text-sm text-slate-500">Train your eye to spot sophisticated phishing, social engineering, and rogue networks.</p>
+              </div>
+
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow sm:translate-y-8">
+                <div className="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4 text-amber-600">
+                  <BellRing size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Daily Reminders</h3>
+                <p className="text-sm text-slate-500">Opt-in to our newsletter to get your daily mission delivered straight to your inbox.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* --- END 31 DAYS OF CYBER SECTION --- */}
+
+
+      {/* --- THREAT SIMULATOR SECTION --- */}
+      <section className="bg-slate-950 py-20 md:py-32 relative z-10 overflow-hidden border-b border-slate-900">
+        
+        {/* Subtle glowing background aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-cyan/5 rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Left Column: Terminal Mockup */}
+            <div className="relative group">
+              {/* Outer glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan to-brand-blue rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-700"></div>
+              
+              <div className="relative bg-[#0F172A] border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                {/* Mac-style Window Header */}
+                <div className="bg-slate-900 px-4 py-3 border-b border-slate-800 flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                  <div className="ml-4 text-xs text-slate-500 font-mono">root@connoisseur24:~</div>
+                </div>
+                
+                {/* Terminal Body */}
+                <div className="p-6 font-mono text-sm md:text-base">
+                  <p className="text-emerald-400 mb-2">$ ./run_simulator --module phishing</p>
+                  <p className="text-slate-400 mb-1">&gt; Initializing target environment...</p>
+                  <p className="text-slate-400 mb-1">&gt; Deploying payload simulator...</p>
+                  <p className="text-slate-400 mb-4">&gt; Awaiting user interaction...</p>
+                  
+                  <div className="border border-red-500/30 bg-red-500/10 p-4 rounded text-red-400 mb-4">
+                    [!] ALERT: User clicked malicious link.<br/>
+                    [!] Credential harvest successful.<br/>
+                    &gt; Simulation Complete. Assessment: FAILED.
+                  </div>
+                  
+                  <p className="text-emerald-400 flex items-center gap-1">
+                    root@connoisseur24:~ <span className="w-2 h-5 bg-emerald-400 animate-pulse inline-block"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Copywriting */}
+            <div className="flex flex-col space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-navy/50 text-brand-cyan text-sm font-semibold w-max border border-brand-blue/30">
+                <Terminal size={16} />
+                Interactive Learning
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+                Experience attacks in a <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-blue">safe sandbox.</span>
+              </h2>
+              
+              <p className="text-lg text-slate-400">
+                Reading about cyber threats is one thing. Experiencing them firsthand is another. Our Threat Simulator lets you safely interact with live-fire exercises simulating phishing, malware, and social engineering attacks.
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                <div className="flex flex-col gap-2">
+                  <Activity className="text-brand-cyan w-6 h-6" />
+                  <h4 className="text-white font-semibold">Real-World Scenarios</h4>
+                  <p className="text-sm text-slate-500">Train against the exact techniques currently used by advanced persistent threats.</p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Crosshair className="text-brand-blue w-6 h-6" />
+                  <h4 className="text-white font-semibold">Immediate Feedback</h4>
+                  <p className="text-sm text-slate-500">Understand exactly where you failed and how to prevent it in the real world.</p>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <Link 
+                  href="/simulator" 
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue hover:bg-brand-cyan hover:text-slate-900 text-white rounded-lg font-medium text-center transition-colors shadow-lg w-max"
+                >
+                  Launch Simulator
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+      {/* --- END THREAT SIMULATOR SECTION --- */}
+
+      {/* --- FINAL CTA SECTION --- */}
+      <section className="bg-brand-blue relative py-16 md:py-24 overflow-hidden z-10 border-b border-brand-navy">
+        {/* Subtle background glow effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full bg-white/10 blur-3xl rounded-full pointer-events-none"></div>
+        
+        <div className="container mx-auto px-4 md:px-8 relative z-10 text-center flex flex-col items-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            Don't wait until you're compromised.
+          </h2>
+          <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+            Join the Connoisseur24 community of individuals and organizations taking proactive steps to secure their digital footprint today.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+            <Link 
+              href="/october" 
+              className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg transition-transform hover:scale-105 shadow-xl flex items-center justify-center gap-2"
+            >
+              Start Your 31-Day Journey
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+          
+          <p className="text-sm text-blue-200 mt-6 font-medium">
+            Or subscribe to our newsletter in the footer below for weekly intelligence.
+          </p>
+        </div>
+      </section>
+      {/* --- END FINAL CTA SECTION --- */}
+      
     </main>
+  );
+}
+
+// Framer Motion Animated Counter Component
+function AnimatedNumber({ value, prefix = "", suffix = "" }: { value: number, prefix?: string, suffix?: string }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const count = useMotionValue(0);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+
+  useEffect(() => {
+    if (inView) {
+      animate(count, value, { duration: 2, ease: "easeOut" });
+    }
+  }, [inView, value, count]);
+
+  return (
+    <span ref={ref} className="flex items-center justify-center">
+      {prefix}<motion.span>{rounded}</motion.span>{suffix}
+    </span>
   );
 }
