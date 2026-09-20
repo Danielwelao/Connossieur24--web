@@ -422,7 +422,7 @@ export default function Home() {
       {/* --- END THREAT SIMULATOR SECTION --- */}
 
       {/* --- FINAL CTA SECTION --- */}
-      <section className="bg-brand-blue relative py-16 md:py-24 overflow-hidden z-10 border-b border-brand-navy">
+      <section className="bg-gradient-to-br from-brand-blue to-brand-navy relative py-16 md:py-24 overflow-hidden z-10">
         {/* Subtle background glow effect */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full bg-white/10 blur-3xl rounded-full pointer-events-none"></div>
         
@@ -437,7 +437,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
             <Link 
               href="/october" 
-              className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg transition-transform hover:scale-105 shadow-xl flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-white hover:bg-slate-50 text-brand-blue font-bold rounded-lg transition-transform hover:scale-105 shadow-xl flex items-center justify-center gap-2"
             >
               Start Your 31-Day Journey
               <ArrowRight className="w-5 h-5" />
