@@ -1,17 +1,22 @@
 {
   "name": "connoisseur24",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--dns-result-order=ipv4first' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "prisma skills sync || exit 0"
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push"
   },
   "dependencies": {
+    "@prisma/client": "^6.19.3",
     "@tailwindcss/typography": "^0.5.20",
     "date-fns": "^4.4.0",
+    "dotenv": "^18.0.1",
     "framer-motion": "^13.2.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.42.0",
@@ -27,7 +32,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
-    "prisma": "^8.0.0-rc.15",
+    "prisma": "^6.19.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
