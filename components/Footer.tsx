@@ -1,9 +1,41 @@
 "use client";
 
+import { useState } from "react";
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+    setMessage("");
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'footer' }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Failed to subscribe');
+
+      setStatus('success');
+      setMessage('Subscribed successfully!');
+      setEmail('');
+    } catch (error: any) {
+      setStatus('error');
+      setMessage(error.message);
+    }
+  };
+
   return (
     <footer className="bg-brand-dark text-slate-300 py-12 md:py-16">
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -25,7 +57,7 @@ export default function Footer() {
           <p className="text-sm font-medium text-slate-200">
             hello@connoisseur24.com
           </p>
-        </div> {/* <--- THIS IS THE MISSING CLOSING DIV! */}
+        </div>
 
         {/* Column 2: Platform */}
         <div>
@@ -53,19 +85,34 @@ export default function Footer() {
         {/* Column 4: Newsletter / Lead Magnet */}
         <div>
           <h3 className="text-white font-semibold mb-4">Stay Informed</h3>
-          <p className="text-sm text-slate-400 mb-4">Get practical security tips delivered to your inbox.</p>
-          <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
+          <p className="text-slate-400 text-sm mb-4">Get practical security tips delivered to your inbox.</p>
+          
+          <form onSubmit={handleSubscribe} className="flex flex-col gap-3">
             <input 
               type="email" 
               placeholder="Enter your email" 
-              className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-md text-sm text-white focus:outline-none focus:border-brand-cyan"
+              value={email || ""}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled={status === 'loading' || status === 'success'}
+              className="w-full px-4 py-2 bg-[#0F172A] border border-slate-800 rounded-lg text-white focus:outline-none focus:border-brand-blue disabled:opacity-50"
             />
-            <button className="px-4 py-2 bg-brand-blue hover:bg-brand-navy text-white text-sm font-medium rounded-md transition-colors">
-              Subscribe
+            <button 
+              type="submit" 
+              disabled={status === 'loading' || status === 'success'}
+              className="w-full px-4 py-2 bg-brand-blue hover:bg-brand-cyan hover:text-slate-900 text-white font-medium rounded-lg transition-colors disabled:opacity-70 flex items-center justify-center"
+            >
+              {status === 'loading' ? 'Subscribing...' : status === 'success' ? 'Subscribed!' : 'Subscribe'}
             </button>
+            
+            {/* Feedback Message (Success or Error) */}
+            {message && (
+              <p className={`text-xs mt-1 font-medium ${status === 'success' ? 'text-emerald-400' : 'text-red-400'}`}>
+                {message}
+              </p>
+            )}
           </form>
         </div>
-
       </div>
       
       {/* Bottom Copyright */}
