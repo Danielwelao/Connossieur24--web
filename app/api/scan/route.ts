@@ -53,7 +53,7 @@ export async function POST(request: Request) {
       method: 'GET',
       headers: {
         'hibp-api-key': apiKey,
-        'user-agent': 'Connoisseur24-Security-Scanner', // Required by HIBP
+        'user-agent': 'Connossieur24-Security-Scanner', // Required by HIBP
       },
     });
 

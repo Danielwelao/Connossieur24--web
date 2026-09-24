@@ -354,7 +354,7 @@ export default function Home() {
                   <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
                   <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
                   <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-                  <div className="ml-4 text-xs text-slate-500 font-mono">root@connoisseur24:~</div>
+                  <div className="ml-4 text-xs text-slate-500 font-mono">root@connossieur24:~</div>
                 </div>
                 
                 {/* Terminal Body */}
@@ -371,7 +371,7 @@ export default function Home() {
                   </div>
                   
                   <p className="text-emerald-400 flex items-center gap-1">
-                    root@connoisseur24:~ <span className="w-2 h-5 bg-emerald-400 animate-pulse inline-block"></span>
+                    root@connossieur24:~ <span className="w-2 h-5 bg-emerald-400 animate-pulse inline-block"></span>
                   </p>
                 </div>
               </div>
@@ -431,7 +431,7 @@ export default function Home() {
             Don't wait until you're compromised.
           </h2>
           <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-            Join the Connoisseur24 community of individuals and organizations taking proactive steps to secure their digital footprint today.
+            Join the Connossieur24 community of individuals and organizations taking proactive steps to secure their digital footprint today.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">

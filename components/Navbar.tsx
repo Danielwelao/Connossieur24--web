@@ -21,7 +21,7 @@ export default function Navbar() {
           <Link href="/" onClick={handleLinkClick} className="flex items-center">
             <Image 
               src="/branding/logo-light.png" 
-              alt="Connoisseur24 Logo" 
+              alt="Connossieur24 Logo" 
               width={400} 
               height={80} 
               className="h-8 md:h-10 w-auto object-contain" 

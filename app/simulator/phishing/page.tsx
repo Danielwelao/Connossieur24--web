@@ -39,13 +39,13 @@ const SCENARIOS = [
   {
     id: 3,
     senderName: "HR Department",
-    senderEmail: "hr@connoisseur24-update.com", // Red flag: subtle typo/wrong domain
+    senderEmail: "hr@connossieur24-update.com", // Red flag: subtle typo/wrong domain
     subject: "Updated 2026 Salary & Benefits Structure",
     date: "Oct 2, 8:00 AM",
     body: `Team,\n\nWe have updated the salary structure and health benefits for Q4 2026. All employees are required to review the changes and sign the acknowledgment form by Friday.\n\nPlease review the secure document here: [https://docs.google.com.secure-login-portal.net/document/d/1a2b3c]\n\nBest,\nHR`,
     isPhishing: true,
     redFlags: [
-      "The sender email uses a fake domain ('connoisseur24-update.com') instead of your internal company domain.",
+      "The sender email uses a fake domain ('connossieur24-update.com') instead of your internal company domain.",
       "The link looks like a Google Doc but actually redirects to 'secure-login-portal.net'.",
       "Exploits curiosity and greed (salary changes) to trick employees into clicking."
     ]

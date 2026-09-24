@@ -51,7 +51,7 @@ export default function Footer() {
           <Link href="/" className="mb-6 block">
             <Image 
               src="/branding/logo-dark.png" 
-              alt="Connoisseur24 Logo" 
+              alt="Connossieur24 Logo" 
               width={400} 
               height={80} 
               className="h-10 md:h-12 w-auto object-contain mb-2" 
@@ -61,7 +61,7 @@ export default function Footer() {
             Building a digitally secure society where individuals and organizations have the knowledge to navigate the digital world safely.
           </p>
           <p className="text-sm font-medium text-slate-200">
-            hello@connoisseur24.com
+            hello@connossieur24.com
           </p>
         </div>
 
@@ -129,7 +129,7 @@ export default function Footer() {
       
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
-        <p>© {new Date().getFullYear()} Connoisseur24. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Connossieur24. All rights reserved.</p>
         <p className="mt-2 md:mt-0">Nigeria • Global</p>
       </div>
     </footer>
