@@ -75,7 +75,7 @@ export default function Home() {
               href="/october" 
               className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-medium text-center transition-colors shadow-lg"
             >
-              Start the 31-Day Guide
+              Start the 30-Day Guide
             </Link>
             <Link 
               href="/simulator" 
@@ -246,7 +246,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- 31 DAYS OF CYBER SECTION --- */}
+      {/* --- 30 DAYS OF CYBER SECTION --- */}
       <section className="bg-slate-50 py-10 md:py-16 relative z-10 border-b border-slate-200">
         <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -259,7 +259,7 @@ export default function Home() {
               </div>
               
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
-                Transform your security habits in <span className="text-brand-blue">31 days.</span>
+                Transform your security habits in <span className="text-brand-blue">30 days.</span>
               </h2>
               
               <p className="text-lg text-slate-600">
@@ -331,7 +331,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* --- END 31 DAYS OF CYBER SECTION --- */}
+      {/* --- END 30 DAYS OF CYBER SECTION --- */}
 
 
       {/* --- THREAT SIMULATOR SECTION --- */}
@@ -439,7 +439,7 @@ export default function Home() {
               href="/october" 
               className="px-8 py-4 bg-white hover:bg-slate-50 text-brand-blue font-bold rounded-lg transition-transform hover:scale-105 shadow-xl flex items-center justify-center gap-2"
             >
-              Start Your 31-Day Journey
+              Start Your 30-Day Journey
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>

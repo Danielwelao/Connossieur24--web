@@ -33,7 +33,7 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
           <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
-          <Link href="/october" className="hover:text-blue-600 transition-colors">31 Days of Cyber</Link>
+          <Link href="/october" className="hover:text-blue-600 transition-colors">30 Days of Cyber</Link>
           <Link href="/simulator" className="hover:text-blue-600 transition-colors">Threat Simulator</Link>
         </nav>
 
@@ -76,7 +76,7 @@ export default function Navbar() {
                 onClick={handleLinkClick}
                 className="text-lg font-medium text-slate-900 hover:text-blue-600 transition-colors py-2 border-b border-slate-100"
               >
-                31 Days of Cyber
+                30 Days of Cyber
               </Link>
               <Link 
                 href="/simulator" 

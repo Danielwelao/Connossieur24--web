@@ -30,6 +30,12 @@ export default function Footer() {
       setStatus('success');
       setMessage('Subscribed successfully!');
       setEmail('');
+
+      setTimeout(() => {
+        setStatus('idle');
+        setMessage('');
+      }, 3000);
+
     } catch (error: any) {
       setStatus('error');
       setMessage(error.message);
@@ -63,7 +69,7 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-semibold mb-4">Platform</h3>
           <ul className="space-y-3 text-sm">
-            <li><Link href="/october" className="hover:text-brand-cyan transition-colors">31 Days of Cyber</Link></li>
+            <li><Link href="/october" className="hover:text-brand-cyan transition-colors">30 Days of Cyber</Link></li>
             <li><Link href="/simulator" className="hover:text-brand-cyan transition-colors">Threat Simulator</Link></li>
             <li><Link href="#" className="hover:text-brand-cyan transition-colors">Glossary</Link></li>
             <li><Link href="#" className="hover:text-brand-cyan transition-colors">Blog</Link></li>
@@ -100,8 +106,14 @@ export default function Footer() {
             <button 
               type="submit" 
               disabled={status === 'loading' || status === 'success'}
-              className="w-full px-4 py-2 bg-brand-blue hover:bg-brand-cyan hover:text-slate-900 text-white font-medium rounded-lg transition-colors disabled:opacity-70 flex items-center justify-center"
+              className="w-full px-4 py-2 bg-brand-blue hover:bg-brand-cyan hover:text-slate-900 text-white font-medium rounded-lg transition-colors disabled:opacity-70 flex items-center justify-center gap-2"
             >
+              {status === 'loading' && (
+                <svg className="w-4 h-4 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              )}
               {status === 'loading' ? 'Subscribing...' : status === 'success' ? 'Subscribed!' : 'Subscribe'}
             </button>
             
