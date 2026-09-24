@@ -10,22 +10,22 @@ export default function MarkCompleteButton({ day }: { day: string }) {
   // Load saved progress on mount
   useEffect(() => {
     setIsMounted(true);
-    const completedDays = JSON.parse(localStorage.getItem('connoisseur-progress') || '[]');
+    const completedDays = JSON.parse(localStorage.getItem('connossieur-progress') || '[]');
     if (completedDays.includes(day)) setIsCompleted(true);
   }, [day]);
 
   const toggleComplete = () => {
-    const completedDays = JSON.parse(localStorage.getItem('connoisseur-progress') || '[]');
+    const completedDays = JSON.parse(localStorage.getItem('connossieur-progress') || '[]');
     
     if (isCompleted) {
       // Unmark it
       const updated = completedDays.filter((d: string) => d !== day);
-      localStorage.setItem('connoisseur-progress', JSON.stringify(updated));
+      localStorage.setItem('connossieur-progress', JSON.stringify(updated));
       setIsCompleted(false);
     } else {
       // Mark it
       completedDays.push(day);
-      localStorage.setItem('connoisseur-progress', JSON.stringify(completedDays));
+      localStorage.setItem('connossieur-progress', JSON.stringify(completedDays));
       setIsCompleted(true);
     }
   };
