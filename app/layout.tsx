@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const geistSans = Geist({ 
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+});
+
+const jetBrainsMono = JetBrains_Mono({ 
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono", 
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
 
 export const metadata: Metadata = {
   title: "Connossieur24",
@@ -30,9 +43,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} flex flex-col min-h-screen bg-slate-50`} suppressHydrationWarning>
+      <body 
+        className={`${geistSans.variable} ${jetBrainsMono.variable} ${spaceGrotesk.variable} ${geistSans.className} flex flex-col min-h-screen bg-slate-50 antialiased`} 
+        suppressHydrationWarning
+      >
         <Navbar />
-        {/* Main takes up remaining space so the footer is always pushed to the bottom */}
         <main className="flex-grow">
           {children}
         </main>
