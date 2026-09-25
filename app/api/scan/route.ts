@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
 
-// This forces Next.js to treat this as a dynamic endpoint, not a static page
+// Forces Next.js to treat this as a dynamic endpoint, not a static cached page
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: Request) {
   try {
-    // 1. Parse the incoming request body
     const body = await request.json();
     const { email } = body;
 
@@ -16,7 +15,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Validate email format (basic regex to prevent junk data)
+    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
        return NextResponse.json(
@@ -25,40 +24,52 @@ export async function POST(request: Request) {
       );
     }
 
-    /* 
-      3. The OSINT Integration (Have I Been Pwned)
-      In production, you will need a HIBP API Key stored in your .env.local file:
-      HIBP_API_KEY=your_key_here
-    */
-    
     const apiKey = process.env.HIBP_API_KEY;
     
-    // For development, if there's no API key, we simulate a realistic response
+    // DEV MODE: Deterministic simulation
     if (!apiKey) {
       console.log('⚠️ Running in Dev Mode: Simulating OSINT scan for', email);
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network latency
+      await new Promise((resolve) => setTimeout(resolve, 1500)); 
       
-      const isExposed = Math.random() > 0.5; // 50/50 chance for testing
+      // Calculate a consistent number based on the characters in the email
+      const charSum = email.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
       
+      // If the sum is even, they are breached. If odd, they are safe. 
+      // This guarantees the exact same email always gets the exact same result.
+      const isExposed = charSum % 2 === 0;
+      
+      if (!isExposed) {
+        return NextResponse.json({
+          email,
+          status: 'safe',
+          breachCount: 0,
+        });
+      }
+
+      // If exposed, generate consistent breach data based on that same charSum
       return NextResponse.json({
         email,
-        status: isExposed ? 'exposed' : 'safe',
-        breachCount: isExposed ? Math.floor(Math.random() * 5) + 1 : 0,
+        status: 'exposed',
+        breachCount: (charSum % 4) + 2, // Always returns a consistent number between 2 and 5
+        breaches: [
+          { name: "Apollo Data Scraping", domain: "apollo.io" },
+          { name: "LinkedIn Scrape", domain: "linkedin.com" },
+          { name: "Canva Breach", domain: "canva.com" }
+        ].slice(0, (charSum % 3) + 1), // Always returns a consistent list of domains
         message: 'Dev mode simulation'
       });
     }
 
-    // PRODUCTION: Actual API Call to HIBP
+    // PRODUCTION MODE: Actual HIBP API Call
     const response = await fetch(`https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(email)}?truncateResponse=false`, {
       method: 'GET',
       headers: {
         'hibp-api-key': apiKey,
-        'user-agent': 'Connossieur24-Security-Scanner', // Required by HIBP
+        'user-agent': 'Connossieur24-Security-Scanner', 
       },
     });
 
     if (response.status === 404) {
-      // 404 means the email was NOT found in any breaches (Safe)
       return NextResponse.json({
         email,
         status: 'safe',
@@ -67,17 +78,20 @@ export async function POST(request: Request) {
     }
 
     if (response.status === 200) {
-      // 200 means breaches were found
       const data = await response.json();
       return NextResponse.json({
         email,
         status: 'exposed',
         breachCount: data.length,
-        breaches: data.slice(0, 3).map((b: any) => ({ name: b.Name, domain: b.Domain })) // Return top 3
+        // Map and return the top 3 most recent/relevant breaches
+        breaches: data.slice(0, 3).map((b: any) => ({ 
+          name: b.Name, 
+          domain: b.Domain 
+        })) 
       });
     }
 
-    // Handle Rate Limiting (429) or other errors
+    // Handle Rate Limiting
     if (response.status === 429) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please try again later.' },
