@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       await new Promise((resolve) => setTimeout(resolve, 1500)); 
       
       // Calculate a consistent number based on the characters in the email
-      const charSum = email.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+      const charSum = String(email).split('').reduce((sum: number, char: string) => sum + char.charCodeAt(0), 0);
       
       // If the sum is even, they are breached. If odd, they are safe. 
       // This guarantees the exact same email always gets the exact same result.
