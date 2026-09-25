@@ -71,8 +71,8 @@ export default function Footer() {
           <ul className="space-y-3 text-sm">
             <li><Link href="/october" className="hover:text-brand-cyan transition-colors">30 Days of Cyber</Link></li>
             <li><Link href="/simulator" className="hover:text-brand-cyan transition-colors">Threat Simulator</Link></li>
-            <li><Link href="#" className="hover:text-brand-cyan transition-colors">Glossary</Link></li>
-            <li><Link href="#" className="hover:text-brand-cyan transition-colors">Blog</Link></li>
+            <li><Link href="/glossary" className="hover:text-brand-cyan transition-colors">Glossary</Link></li>
+            <li><Link href="/blog" className="hover:text-brand-cyan transition-colors">Blog</Link></li>
           </ul>
         </div>
 
@@ -83,7 +83,7 @@ export default function Footer() {
             <li><Link href="#" className="hover:text-brand-cyan transition-colors">Privacy Policy</Link></li>
             <li><Link href="#" className="hover:text-brand-cyan transition-colors">Terms of Service</Link></li>
             <li><Link href="#" className="hover:text-brand-cyan transition-colors">Cookie Policy</Link></li>
-            <li><Link href="#" className="text-brand-cyan hover:text-blue-300 transition-colors font-medium">Security Policy</Link></li>
+            <li><Link href="/security" className="text-brand-cyan hover:text-blue-300 transition-colors font-medium">Security Policy</Link></li>
             <li><Link href="#" className="hover:text-brand-cyan transition-colors">Responsible Disclosure</Link></li>
           </ul>
         </div>
@@ -130,7 +130,7 @@ export default function Footer() {
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
         <p>© {new Date().getFullYear()} Connossieur24. All rights reserved.</p>
-        <p className="mt-2 md:mt-0">Nigeria • Global</p>
+        <p className="mt-2 md:mt-0">Nigeria • Global Network</p>
       </div>
     </footer>
   );
