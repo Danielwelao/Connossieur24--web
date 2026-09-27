@@ -11,5 +11,5 @@ model Subscriber {
   id        String   @id @default(cuid())
   email     String   @unique
   createdAt DateTime @default(now())
-  source    String?
+  source    String   @default("newsletter")
 }
