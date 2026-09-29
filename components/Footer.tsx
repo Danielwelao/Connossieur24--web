@@ -126,11 +126,14 @@ export default function Footer() {
         </div>
       </div>
       
-      {/* Bottom Copyright */}
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center">
-        <p>© {new Date().getFullYear()} Connossieur24. All rights reserved.</p>
+      {/* Bottom Copyright - Fixed Mobile Layout */}
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 mt-12 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+        
+        <p className="text-center md:text-left">
+          © {new Date().getFullYear()} Connossieur24. All rights reserved.
+        </p>
 
-        <div className="flex items-center space-x-5">
+        <div className="flex items-center space-x-6">
           {/* X (Official Logo) */}
           <a 
             href="https://x.com/connossieur24/" 
@@ -192,7 +195,10 @@ export default function Footer() {
             </svg>
           </a>
         </div>
-        <p className="mt-2 md:mt-0">Nigeria • Global Network</p>
+
+        <p className="text-center md:text-right">
+          Nigeria
+        </p>
       </div>
     </footer>
   );
