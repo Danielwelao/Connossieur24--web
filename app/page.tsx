@@ -7,28 +7,37 @@ import { Search, ShieldAlert, ShieldCheck, TrendingUp, Users, Calendar, BookOpen
 import Link from "next/link";
 
 // ----------------------------------------------------------------------
-// Reusable Scroll Reveal Wrapper
+// Upgraded Dynamic Scroll Reveal Wrapper
 // ----------------------------------------------------------------------
 interface ScrollRevealProps {
   children: ReactNode;
   width?: "fit-content" | "100%";
   delay?: number;
+  direction?: "up" | "down" | "left" | "right" | "scale";
 }
 
-const ScrollReveal = ({ children, width = "100%", delay = 0 }: ScrollRevealProps) => {
+const ScrollReveal = ({ children, width = "100%", delay = 0, direction = "up" }: ScrollRevealProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
 
+  const getVariants = () => {
+    switch (direction) {
+      case "up": return { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } };
+      case "down": return { hidden: { opacity: 0, y: -40 }, visible: { opacity: 1, y: 0 } };
+      case "left": return { hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0 } };
+      case "right": return { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0 } };
+      case "scale": return { hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1 } };
+      default: return { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } };
+    }
+  };
+
   return (
-    <div ref={ref} style={{ width }} className="relative overflow-hidden">
+    <div ref={ref} style={{ width, position: "relative" }}>
       <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 50 },
-          visible: { opacity: 1, y: 0 },
-        }}
+        variants={getVariants()}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: delay }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: delay }}
       >
         {children}
       </motion.div>
@@ -85,7 +94,7 @@ export default function Home() {
         
         {/* Left Column: Copywriting */}
         <div className="flex flex-col space-y-6">
-          <ScrollReveal delay={0.1}>
+          <ScrollReveal direction="left" delay={0.1}>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold w-max">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
@@ -95,19 +104,19 @@ export default function Home() {
             </div>
           </ScrollReveal>
           
-          <ScrollReveal delay={0.2}>
+          <ScrollReveal direction="left" delay={0.2}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
               Cybersecurity shouldn&apos;t be a <span className="text-blue-600">mystery.</span>
             </h1>
           </ScrollReveal>
           
-          <ScrollReveal delay={0.3}>
+          <ScrollReveal direction="left" delay={0.3}>
             <p className="text-lg md:text-xl text-slate-600 max-w-lg">
               Practical, actionable intelligence for individuals and organizations. Learn how to navigate the digital world safely, one step at a time.
             </p>
           </ScrollReveal>
           
-          <ScrollReveal delay={0.4}>
+          <ScrollReveal direction="left" delay={0.4}>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link 
                 href="/october" 
@@ -126,7 +135,7 @@ export default function Home() {
         </div>
 
         {/* Right Column: The Scanner */}
-        <ScrollReveal delay={0.3}>
+        <ScrollReveal direction="right" delay={0.3}>
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur-xl opacity-20" />
             
@@ -232,10 +241,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto w-full px-4 md:px-8">
           
           <div className="text-center mb-16">
-            <ScrollReveal>
+            <ScrollReveal direction="down">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">The Threat Landscape</h2>
             </ScrollReveal>
-            <ScrollReveal delay={0.1}>
+            <ScrollReveal direction="up" delay={0.1}>
               <p className="text-slate-600 max-w-2xl mx-auto">
                 Cyber attacks are scaling rapidly. Understanding the scope of the problem is the first step toward effective defense.
               </p>
@@ -245,7 +254,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-slate-200">
             
             {/* Stat 1 */}
-            <ScrollReveal delay={0.1}>
+            <ScrollReveal direction="up" delay={0.1}>
               <div className="flex flex-col items-center text-center py-6 md:py-0 md:px-8">
                 <div className="h-14 w-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 shadow-sm border border-blue-100">
                   <ShieldAlert className="text-blue-600 h-6 w-6" />
@@ -261,7 +270,7 @@ export default function Home() {
             </ScrollReveal>
 
             {/* Stat 2 */}
-            <ScrollReveal delay={0.2}>
+            <ScrollReveal direction="up" delay={0.2}>
               <div className="flex flex-col items-center text-center py-6 md:py-0 md:px-8">
                 <div className="h-14 w-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 shadow-sm border border-blue-100">
                   <TrendingUp className="text-blue-600 h-6 w-6" />
@@ -277,7 +286,7 @@ export default function Home() {
             </ScrollReveal>
 
             {/* Stat 3 */}
-            <ScrollReveal delay={0.3}>
+            <ScrollReveal direction="up" delay={0.3}>
               <div className="flex flex-col items-center text-center py-6 md:py-0 md:px-8">
                 <div className="h-14 w-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 shadow-sm border border-blue-100">
                   <Users className="text-blue-600 h-6 w-6" />
@@ -303,26 +312,26 @@ export default function Home() {
             
             {/* Left Column: Story */}
             <div className="flex flex-col space-y-6">
-              <ScrollReveal delay={0.1}>
+              <ScrollReveal direction="left" delay={0.1}>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-semibold w-max border border-blue-200">
                   <Calendar size={16} />
                   October Awareness Month
                 </div>
               </ScrollReveal>
               
-              <ScrollReveal delay={0.2}>
+              <ScrollReveal direction="left" delay={0.2}>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
                   Transform your security habits in <span className="text-blue-600">30 days.</span>
                 </h2>
               </ScrollReveal>
               
-              <ScrollReveal delay={0.3}>
+              <ScrollReveal direction="left" delay={0.3}>
                 <p className="text-lg text-slate-600">
                   Cybersecurity isn&apos;t about complex code; it&apos;s about daily habits. Our flagship October campaign breaks down enterprise-grade security protocols into bite-sized, actionable daily missions for everyone.
                 </p>
               </ScrollReveal>
               
-              <ScrollReveal delay={0.4}>
+              <ScrollReveal direction="left" delay={0.4}>
                 <ul className="space-y-4 pt-4">
                   {[
                     "Daily 5-minute security briefings",
@@ -339,7 +348,7 @@ export default function Home() {
                 </ul>
               </ScrollReveal>
 
-              <ScrollReveal delay={0.5}>
+              <ScrollReveal direction="left" delay={0.5}>
                 <div className="pt-6">
                   <Link 
                     href="/october" 
@@ -355,7 +364,7 @@ export default function Home() {
             {/* Right Column: Feature Grid (Bento Box Style) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-              <ScrollReveal delay={0.2}>
+              <ScrollReveal direction="scale" delay={0.2}>
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
                   <div className="h-10 w-10 bg-indigo-50 rounded-lg flex items-center justify-center mb-4 text-indigo-600">
                     <BookOpen size={20} />
@@ -365,7 +374,7 @@ export default function Home() {
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal delay={0.4}>
+              <ScrollReveal direction="scale" delay={0.3}>
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow sm:translate-y-8">
                   <div className="h-10 w-10 bg-emerald-50 rounded-lg flex items-center justify-center mb-4 text-emerald-600">
                     <Lock size={20} />
@@ -375,7 +384,7 @@ export default function Home() {
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal delay={0.3}>
+              <ScrollReveal direction="scale" delay={0.4}>
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow mt-4 sm:mt-0">
                   <div className="h-10 w-10 bg-rose-50 rounded-lg flex items-center justify-center mb-4 text-rose-600">
                     <ShieldAlert size={20} />
@@ -385,7 +394,7 @@ export default function Home() {
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal delay={0.5}>
+              <ScrollReveal direction="scale" delay={0.5}>
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow sm:translate-y-8">
                   <div className="h-10 w-10 bg-amber-50 rounded-lg flex items-center justify-center mb-4 text-amber-600">
                     <BellRing size={20} />
@@ -409,7 +418,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             {/* Left Column: Terminal Mockup */}
-            <ScrollReveal delay={0.2}>
+            <ScrollReveal direction="left" delay={0.2}>
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-700"></div>
                 
@@ -443,26 +452,26 @@ export default function Home() {
 
             {/* Right Column: Copywriting */}
             <div className="flex flex-col space-y-6">
-              <ScrollReveal delay={0.1}>
+              <ScrollReveal direction="right" delay={0.1}>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 text-blue-400 text-sm font-semibold w-max border border-blue-500/30">
                   <Terminal size={16} />
                   Interactive Learning
                 </div>
               </ScrollReveal>
               
-              <ScrollReveal delay={0.2}>
+              <ScrollReveal direction="right" delay={0.2}>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
                   Experience attacks in a <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">safe sandbox.</span>
                 </h2>
               </ScrollReveal>
               
-              <ScrollReveal delay={0.3}>
+              <ScrollReveal direction="right" delay={0.3}>
                 <p className="text-lg text-slate-400">
                   Reading about cyber threats is one thing. Experiencing them firsthand is another. Our Threat Simulator lets you safely interact with live-fire exercises simulating phishing, malware, and social engineering attacks.
                 </p>
               </ScrollReveal>
               
-              <ScrollReveal delay={0.4}>
+              <ScrollReveal direction="right" delay={0.4}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
                   <div className="flex flex-col gap-2">
                     <Activity className="text-blue-400 w-6 h-6" />
@@ -477,7 +486,7 @@ export default function Home() {
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal delay={0.5}>
+              <ScrollReveal direction="right" delay={0.5}>
                 <div className="pt-6">
                   <Link 
                     href="/simulator" 
@@ -499,19 +508,19 @@ export default function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-full bg-white/10 blur-3xl rounded-full pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto w-full px-4 md:px-8 relative z-10 text-center flex flex-col items-center">
-          <ScrollReveal>
+          <ScrollReveal direction="up" delay={0.1}>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Don&apos;t wait until you&apos;re compromised.
             </h2>
           </ScrollReveal>
           
-          <ScrollReveal delay={0.1}>
+          <ScrollReveal direction="scale" delay={0.2}>
             <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
               Join the Connossieur24 community of individuals and organizations taking proactive steps to secure their digital footprint today.
             </p>
           </ScrollReveal>
           
-          <ScrollReveal delay={0.2}>
+          <ScrollReveal direction="up" delay={0.3}>
             <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
               <Link 
                 href="/october" 
@@ -523,7 +532,7 @@ export default function Home() {
             </div>
           </ScrollReveal>
           
-          <ScrollReveal delay={0.3}>
+          <ScrollReveal direction="up" delay={0.4}>
             <p className="text-sm text-blue-200 mt-6 font-medium">
               Or subscribe to our newsletter in the footer below for weekly intelligence.
             </p>
