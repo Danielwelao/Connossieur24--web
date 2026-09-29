@@ -61,7 +61,7 @@ export default function Footer() {
             Building a digitally secure society where individuals and organizations have the knowledge to navigate the digital world safely.
           </p>
           <p className="text-sm font-medium text-slate-200">
-            hello@connossieur24.com
+            <strong><a href="mailto:connossieur24@yahoo.com">connossieur24@yahoo.com</a> </strong>
           </p>
         </div>
 
@@ -80,11 +80,10 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-semibold mb-4">Legal & Compliance</h3>
           <ul className="space-y-3 text-sm">
-            <li><Link href="#" className="hover:text-brand-cyan transition-colors">Privacy Policy</Link></li>
-            <li><Link href="#" className="hover:text-brand-cyan transition-colors">Terms of Service</Link></li>
-            <li><Link href="#" className="hover:text-brand-cyan transition-colors">Cookie Policy</Link></li>
+            <li><Link href="/privacy" className="hover:text-brand-cyan transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/terms" className="hover:text-brand-cyan transition-colors">Terms of Service</Link></li>
+            <li><Link href="/cookies" className="hover:text-brand-cyan transition-colors">Cookie Policy</Link></li>
             <li><Link href="/security" className="text-brand-cyan hover:text-blue-300 transition-colors font-medium">Security Policy</Link></li>
-            <li><Link href="#" className="hover:text-brand-cyan transition-colors">Responsible Disclosure</Link></li>
           </ul>
         </div>
 
