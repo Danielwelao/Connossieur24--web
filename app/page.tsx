@@ -112,7 +112,7 @@ export default function Home() {
           
           <ScrollReveal direction="left" delay={0.3}>
             <p className="text-lg md:text-xl text-slate-600 max-w-lg">
-              Practical, actionable intelligence for individuals and organizations. Learn how to navigate the digital world safely, one step at a time.
+              No boring slide decks or complex jargon. Just practical security habits and realistic simulations to keep your accounts safe.
             </p>
           </ScrollReveal>
           
@@ -246,7 +246,7 @@ export default function Home() {
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.1}>
               <p className="text-slate-600 max-w-2xl mx-auto">
-                Cyber attacks are scaling rapidly. Understanding the scope of the problem is the first step toward effective defense.
+                Most security breaches don't start with high-tech hacking, they start with a single clicked link.
               </p>
             </ScrollReveal>
           </div>
@@ -280,7 +280,7 @@ export default function Home() {
                 </h3>
                 <p className="text-slate-800 font-semibold text-lg">Average Breach Cost</p>
                 <p className="text-sm text-slate-500 mt-2 max-w-[250px]">
-                  The financial toll of a data breach on a standard organization.
+                  Average total cost of a data breach for a business.
                 </p>
               </div>
             </ScrollReveal>
@@ -294,9 +294,9 @@ export default function Home() {
                 <h3 className="text-5xl font-extrabold text-slate-900 mb-3">
                   <AnimatedNumber value={85} suffix="%" />
                 </h3>
-                <p className="text-slate-800 font-semibold text-lg">Human Element</p>
+                <p className="text-slate-800 font-semibold text-lg">Human Error</p>
                 <p className="text-sm text-slate-500 mt-2 max-w-[250px]">
-                  Percentage of security breaches caused by human error or social engineering.
+                  Breaches that start with a missed detail, or trick email.
                 </p>
               </div>
             </ScrollReveal>
@@ -327,7 +327,7 @@ export default function Home() {
               
               <ScrollReveal direction="left" delay={0.3}>
                 <p className="text-lg text-slate-600">
-                  Cybersecurity isn&apos;t about complex code; it&apos;s about daily habits. Our flagship October campaign breaks down enterprise-grade security protocols into bite-sized, actionable daily missions for everyone.
+                  Security shouldn't require a computer science degree. Our October guide breaks down essential cyber defense into quick 5-minute daily reads.
                 </p>
               </ScrollReveal>
               
@@ -336,7 +336,7 @@ export default function Home() {
                   {[
                     "Daily 5-minute security briefings",
                     "Actionable device hardening checklists",
-                    "Zero-jargon explanations of complex threats",
+                    "Plain English guides with zero technical fluff",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="mt-1 bg-blue-100 rounded-full p-1">
@@ -370,7 +370,7 @@ export default function Home() {
                     <BookOpen size={20} />
                   </div>
                   <h3 className="font-bold text-slate-900 mb-2">Bite-Sized Modules</h3>
-                  <p className="text-sm text-slate-500">Learn one critical concept per day without feeling overwhelmed by technical jargon.</p>
+                  <p className="text-sm text-slate-500">Master one simple concept a day without getting bogged down in tech terms.</p>
                 </div>
               </ScrollReveal>
 
@@ -379,8 +379,8 @@ export default function Home() {
                   <div className="h-10 w-10 bg-emerald-50 rounded-lg flex items-center justify-center mb-4 text-emerald-600">
                     <Lock size={20} />
                   </div>
-                  <h3 className="font-bold text-slate-900 mb-2">Practical Hardening</h3>
-                  <p className="text-sm text-slate-500">Immediate, actionable steps to lock down your accounts, networks, and physical devices.</p>
+                  <h3 className="font-bold text-slate-900 mb-2">Account Lockdown</h3>
+                  <p className="text-sm text-slate-500">Quick steps you can take right away to secure your email, passwords, and devices.</p>
                 </div>
               </ScrollReveal>
 
@@ -400,7 +400,7 @@ export default function Home() {
                     <BellRing size={20} />
                   </div>
                   <h3 className="font-bold text-slate-900 mb-2">Daily Reminders</h3>
-                  <p className="text-sm text-slate-500">Opt-in to our newsletter to get your daily mission delivered straight to your inbox.</p>
+                  <p className="text-sm text-slate-500">Opt-in to our newsletter to get each daily lesson emailed to you every morning.</p>
                 </div>
               </ScrollReveal>
 
@@ -467,7 +467,7 @@ export default function Home() {
               
               <ScrollReveal direction="right" delay={0.3}>
                 <p className="text-lg text-slate-400">
-                  Reading about cyber threats is one thing. Experiencing them firsthand is another. Our Threat Simulator lets you safely interact with live-fire exercises simulating phishing, malware, and social engineering attacks.
+                  Reading about scams is easy, spotting a real one in your inbox is hard. Practice identifying fake login pages and malicious emails in a controlled sandbox
                 </p>
               </ScrollReveal>
               
@@ -476,12 +476,12 @@ export default function Home() {
                   <div className="flex flex-col gap-2">
                     <Activity className="text-blue-400 w-6 h-6" />
                     <h4 className="text-white font-semibold">Real-World Scenarios</h4>
-                    <p className="text-sm text-slate-500">Train against the exact techniques currently used by advanced persistent threats.</p>
+                    <p className="text-sm text-slate-500">Test yourself against real scams floating around the internet right now.</p>
                   </div>
                   <div className="flex flex-col gap-2">
                     <Crosshair className="text-indigo-400 w-6 h-6" />
                     <h4 className="text-white font-semibold">Immediate Feedback</h4>
-                    <p className="text-sm text-slate-500">Understand exactly where you failed and how to prevent it in the real world.</p>
+                    <p className="text-sm text-slate-500">See immediate breakdowns of what went wrong and how to spot the red flags next time.</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -516,7 +516,7 @@ export default function Home() {
           
           <ScrollReveal direction="scale" delay={0.2}>
             <p className="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-              Join the Connossieur24 community of individuals and organizations taking proactive steps to secure their digital footprint today.
+              Start building better online habits today. Free, practical, and designed for everyone.
             </p>
           </ScrollReveal>
           
@@ -534,7 +534,7 @@ export default function Home() {
           
           <ScrollReveal direction="up" delay={0.4}>
             <p className="text-sm text-blue-200 mt-6 font-medium">
-              Or subscribe to our newsletter in the footer below for weekly intelligence.
+              Or sign up in the footer below to get our weekly security breakdowns sent to your inbox.
             </p>
           </ScrollReveal>
         </div>
