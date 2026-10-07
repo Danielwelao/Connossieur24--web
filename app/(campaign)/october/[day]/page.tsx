@@ -5,8 +5,10 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Lock, ChevronRight, ChevronLeft } from 'lucide-react';
-import { isPast, isToday, startOfDay } from 'date-fns';
 import MarkCompleteButton from '@/components/MarkCompleteButton';
+
+// Force dynamic execution so clearance gates evaluate live on every incoming request
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const contentDir = path.join(process.cwd(), 'content/october');
@@ -37,8 +39,36 @@ export default async function DayPage({ params }: { params: Promise<{ day: strin
   
   if (!post) notFound();
 
-  const releaseDate = new Date(post.data.date);
-  const isAvailable = isPast(startOfDay(releaseDate)) || isToday(releaseDate);
+  // Get current date in West Africa Time (WAT / Africa/Lagos) in YYYY-MM-DD
+  const todayWAT = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Africa/Lagos',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date());
+
+  // Normalize release date to YYYY-MM-DD string
+  let releaseDateStr = '';
+  if (post.data.date instanceof Date) {
+    releaseDateStr = post.data.date.toISOString().split('T')[0];
+  } else {
+    releaseDateStr = String(post.data.date).trim();
+  }
+
+  // Direct date string comparison (e.g. "2026-10-08" >= "2026-10-08")
+  const isAvailable = todayWAT >= releaseDateStr;
+
+  // Safe UI date string formatters
+  const formattedReleaseDate = new Date(`${releaseDateStr}T00:00:00`).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const formattedShortReleaseDate = new Date(`${releaseDateStr}T00:00:00`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 
   // Calculate Next/Prev routes
   const currentDayNum = parseInt(post.data.day);
@@ -54,7 +84,7 @@ export default async function DayPage({ params }: { params: Promise<{ day: strin
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Clearance Required</h1>
           <p className="text-slate-400 mb-8">
-            This module remains classified until {releaseDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}.
+            This module remains classified until {formattedReleaseDate}.
           </p>
           <Link href="/october" className="inline-block w-full py-3 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-lg transition-colors">
             Return to Command Center
@@ -84,7 +114,7 @@ export default async function DayPage({ params }: { params: Promise<{ day: strin
               </div>
               <div className="flex items-center text-slate-500 text-sm font-medium">
                 <Calendar size={14} className="mr-2" />
-                {releaseDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                {formattedShortReleaseDate}
               </div>
             </div>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -107,7 +137,6 @@ export default async function DayPage({ params }: { params: Promise<{ day: strin
               </Link>
             ) : <div />}
 
-            {/* Use the component entirely on its own, no surrounding <button> tags! */}
             <MarkCompleteButton day={post.data.day.toString()} />
 
             {nextDaySlug ? (

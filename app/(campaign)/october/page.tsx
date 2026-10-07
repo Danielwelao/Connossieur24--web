@@ -3,7 +3,9 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 import { Lock, Unlock, Calendar as CalendarIcon } from 'lucide-react';
-import { isPast, isToday, startOfDay } from 'date-fns';
+
+// 1. Force Next.js to render dynamically on every request (bypasses static SSG caching)
+export const dynamic = 'force-dynamic';
 
 function getCampaignDays() {
   const contentDir = path.join(process.cwd(), 'content/october');
@@ -14,6 +16,14 @@ function getCampaignDays() {
   }
 
   const files = fs.readdirSync(contentDir);
+
+  // 2. Get today's date in West Africa Time (WAT / Africa/Lagos) in YYYY-MM-DD format
+  const todayWAT = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Africa/Lagos',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date());
   
   const days = files
     .filter((filename) => filename.endsWith('.mdx'))
@@ -22,20 +32,22 @@ function getCampaignDays() {
       const fileContents = fs.readFileSync(filePath, 'utf8');
       const { data } = matter(fileContents);
       
-      const releaseDate = new Date(data.date);
-      releaseDate.setHours(0, 0, 0, 0);
+      // Normalize frontmatter date to YYYY-MM-DD string
+      let releaseDateStr = '';
+      if (data.date instanceof Date) {
+        releaseDateStr = data.date.toISOString().split('T')[0];
+      } else {
+        releaseDateStr = String(data.date).trim();
+      }
 
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      const isAvailable = today.getTime() >= releaseDate.getTime();
-      const dayNum = parseInt(data.day);
+      // Compare YYYY-MM-DD strings directly (e.g. "2026-10-08" >= "2026-10-08")
+      const isAvailable = todayWAT >= releaseDateStr;
 
       return {
         slug: filename.replace('.mdx', ''),
         title: data.title || 'Classified Intel',
-        dayNumber: data.day || 0,
-        date: data.date,
+        dayNumber: parseInt(data.day) || 0,
+        date: releaseDateStr,
         isAvailable,
       };
     });
@@ -114,7 +126,7 @@ export default function OctoberCampaignHub() {
                     </div>
                     <div className="mt-4 flex items-center text-xs text-slate-500 font-medium">
                       <CalendarIcon size={14} className="mr-2" />
-                      Unlocks {new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      Unlocks {new Date(`${day.date}T00:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </div>
                   </div>
                 )}
