@@ -32,7 +32,7 @@ const SCENARIOS = [
     redFlags: [
       "This is a legitimate security alert.",
       "The sender email uses the official '@github.com' domain.",
-      "The email addresses you by your actual username.",
+      // "The email addresses you by your actual username.",
       "The URL points exactly to the official github.com settings page without redirects."
     ]
   },
