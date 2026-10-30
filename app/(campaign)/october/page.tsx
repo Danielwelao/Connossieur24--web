@@ -65,7 +65,7 @@ export default function OctoberCampaignHub() {
       <div className="max-w-7xl mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <div className="inline-block px-3 py-1 bg-[#0F172A] border border-slate-800 text-brand-cyan text-sm font-bold rounded-full mb-6 tracking-wide uppercase">
-            Commencing October 2nd
+            Commenced October 2nd
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
             30 Days of <span className="text-blue-500">Cyber</span>
